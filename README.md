@@ -1,13 +1,13 @@
-#INSTRUCTIONS#
+**INSTRUCTIONS**
 
-###SECTION A - In all you are required to have three display screens
+**SECTION A** - *In all you are required to have three display screens*
 I. A log in screen - users do not necessarily have to be validated against the
-database 
+database<br/>
 II. A number generation screen that allows the user select the local govt and
 number of plates to generate. This same screen should display the numbers
-generated.
+generated.<br/>
 III. A report screen that allows the user pick a date range and/or LGA and
-show all number plates generated within the period or/and for the LGA.
+show all number plates generated within the period or/and for the LGA.<br/><br/>
 
 ###SECTION B
 I. Use  Bootstrap or any Frontend  framework.
