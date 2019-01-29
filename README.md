@@ -1,8 +1,8 @@
 **INSTRUCTIONS**
 
-**SECTION A** - *In all you are required to have three display screens*<br/>
+**SECTION A** - *In all you are required to have three display screens*<br/><br/>
 I. A log in screen - users do not necessarily have to be validated against the
-database<br/><br/>
+database<br/>
 II. A number generation screen that allows the user select the local govt and
 number of plates to generate. This same screen should display the numbers
 generated.<br/>
