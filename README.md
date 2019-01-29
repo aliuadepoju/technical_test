@@ -17,4 +17,4 @@ III. Backend logics should be written in OOP.<br/><br/>
 **SECTION C**<br/><br/>
 I. Document your APIs.<br/>
 II. Create a folder, name it your full-name and checkout a branch.  <br/>
-III. Push your source codes to https://aliu-adepoju@bitbucket.org/natview/technical_test.git
+III. Push your source codes to https://github.com/aliuadepoju/technical_test.git
