@@ -102,7 +102,8 @@ class Utility
     private static function addNumberSuffix($num, $lgaCode)
     {
         $lastPlateNumber = static::getLastPlateNumberArray($lgaCode);
-        $plateNumber = $num . substr($lastPlateNumber['number'], -2);
+        $suffix = !is_null($lastPlateNumber) ? substr($lastPlateNumber['number'], -2) : 'AA';
+        $plateNumber = $num . $suffix;
 
         if ((int)$num > 999) {
             $lastPlateNumber = static::getLastPlateNumberArray($lgaCode);
