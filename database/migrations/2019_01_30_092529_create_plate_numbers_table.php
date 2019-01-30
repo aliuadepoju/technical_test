@@ -15,8 +15,10 @@ class CreatePlateNumbersTable extends Migration
     {
         Schema::create('plate_numbers', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->string('lga', 20);
+            $table->string('code', 3);
             $table->string('number', 8)->unique();
+            $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')
                 ->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
