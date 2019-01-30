@@ -15,11 +15,11 @@ class Utility
     {
         try {
             // Generate the token
-            $token = hex2bin(random_bytes(32));
+            $token = bin2hex(random_bytes(32));
             $tokenExists = $user->whereApiToken($token)->first();
 
             // Check if token already exists
-            if ($tokenExists) {
+            if (!is_null($tokenExists)) {
                 return static::generateUniqueToken($user);
             }
 
