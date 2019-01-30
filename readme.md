@@ -1,5 +1,3 @@
-# Technical Test
-
 # Installation
 ```bash
     git clone https://github.com/aliuadepoju/technical_test.git
@@ -11,7 +9,9 @@
     php artisan migrate
 ```
 
-**INSTRUCTIONS**
+Please check ``DOCUMENTATION.MD`` file for API documentation.
+
+# INSTRUCTIONS
 
 **SECTION A** - *In all you are required to have three display screens*<br/><br/>
 I. A log in screen - users do not necessarily have to be validated against the
