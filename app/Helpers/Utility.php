@@ -81,7 +81,9 @@ class Utility
      */
     private static function addNumberPrefix($lgaCode)
     {
-        $number = PlateNumber::whereCode($lgaCode)->count() + 1;
+        $plateNumberArray = static::getLastPlateNumberArray($lgaCode);
+        $number = $plateNumberArray ? (int)substr($plateNumberArray['number'], 3, 3) + 1 : 1;
+
         if (strlen($number) == 1) {
             $number = '00' . $number;
         } elseif (strlen($number) == 2) {
@@ -99,16 +101,14 @@ class Utility
      */
     private static function addNumberSuffix($num, $lgaCode)
     {
-        $plateNumber = $num . static::$suffixes[0] . static::$suffixes[0];
+        $lastPlateNumber = static::getLastPlateNumberArray($lgaCode);
+        $plateNumber = $num . substr($lastPlateNumber['number'], -2);
 
         if ((int)$num > 999) {
-            $lastPlateNumber = collect(PlateNumber::whereCode($lgaCode)->get()->toArray())->last();
+            $lastPlateNumber = static::getLastPlateNumberArray($lgaCode);
             $first = substr($lastPlateNumber['number'], -2, 1);
-
-            if (strlen($num) > 3) {
-                $lastSuffix = static::getLastSuffix($lastPlateNumber['number']);
-                $plateNumber = '001' . $first . $lastSuffix;
-            }
+            $lastSuffix = static::getLastSuffix($lastPlateNumber['number']);
+            $plateNumber = '001' . $first . $lastSuffix;
 
             $lastPlateNumber = PlateNumber::whereNumber($lgaCode . $plateNumber)->first();
             if (!is_null($lastPlateNumber)) {
@@ -130,5 +130,15 @@ class Utility
     {
         $second = substr($number, -1);
         return static::$suffixes[array_search($second, str_split(static::$suffixes)) + 1];
+    }
+
+    /**
+     * Get array data of the last plate number
+     * @param $lgaCode
+     * @return mixed
+     */
+    private static function getLastPlateNumberArray($lgaCode)
+    {
+        return collect(PlateNumber::whereCode($lgaCode)->get()->toArray())->last();
     }
 }
