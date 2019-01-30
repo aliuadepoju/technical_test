@@ -27,4 +27,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * One to many relationship between the user and plate number
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function plateNumber()
+    {
+        return $this->hasMany(PlateNumber::class, 'user_id');
+    }
 }

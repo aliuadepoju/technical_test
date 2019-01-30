@@ -15,7 +15,8 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $user->update(['api_token' => Utility::generateUniqueToken($user)]);
+        $user->api_token = Utility::generateUniqueToken($user);
+        $user->save();
     }
 
     /**
