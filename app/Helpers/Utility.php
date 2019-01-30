@@ -28,4 +28,76 @@ class Utility
             return static::generateUniqueToken($user);
         }
     }
+
+    /**
+     * Get LGA name by code
+     * @param $code
+     * @return string
+     */
+    public static function getLgaName($code)
+    {
+        switch ($code) {
+            case 'ABJ':
+                return 'Abaji';
+                break;
+            case 'ABC':
+                return 'Abuja Municipal';
+                break;
+            case 'GWA':
+                return 'Gwagwalada';
+                break;
+            case 'KUJ':
+                return 'Kuje';
+                break;
+            case 'BWR':
+                return 'Bwari';
+                break;
+            case 'KWL':
+                return 'Kwali';
+                break;
+        }
+    }
+
+    /**
+     * Generate unique plate numbers
+     * @param $lgaCode
+     * @return mixed
+     */
+    public static function generatePlateNumber($lgaCode)
+    {
+        $number = auth()->user()->plateNumbers()->whereCode($lgaCode)->count();
+        $prefixedNum = static::addNumberPrefix($number);
+        $plateNumber = strtoupper($lgaCode) . $prefixedNum;
+
+        return $plateNumber;
+    }
+
+    /**
+     * Add number prefix
+     * @param $num
+     * @return string
+     */
+    private static function addNumberPrefix($num)
+    {
+        $num += 1;
+        if (strlen($num) == 1) {
+            return '00' . $num;
+        } elseif (strlen($num) == 2) {
+            return '0' . $num;
+        } elseif (strlen($num) == 3) {
+            return $num;
+        }
+    }
+
+    /**
+     * Add suffix to the plate number
+     * @param $num
+     * @return mixed
+     */
+    private static function addNumberSuffix($num)
+    {
+        $suffix = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        return $num;
+    }
 }

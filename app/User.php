@@ -32,7 +32,7 @@ class User extends Authenticatable
      * One to many relationship between the user and plate number
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function plateNumber()
+    public function plateNumbers()
     {
         return $this->hasMany(PlateNumber::class, 'user_id');
     }

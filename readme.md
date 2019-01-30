@@ -1,4 +1,4 @@
-## Technical Test
+# Technical Test
 
 # Installation
 ```bash

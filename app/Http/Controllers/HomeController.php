@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PlateNumber;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $plateNumbers = auth()->user()->plateNumbers()->latest('id')->paginate(PlateNumber::PER_PAGE);
+
+        return view('home', compact('plateNumbers'));
     }
 }
