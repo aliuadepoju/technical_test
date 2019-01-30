@@ -1,0 +1,42 @@
+{% load static %}
+
+<html>
+<head>
+   <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css' %}">
+   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+   <link rel="stylesheet" href="{% static 'custom/css/custom.css' %}">
+
+   <title>{{title}}</title>
+</head>
+<body>
+    <div class="container">
+    <div class="row">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">Road Safety</a>
+        </nav>
+    </div>
+    {% block content %}
+
+    {% endblock content %}
+
+    </div>
+</body>
+
+
+    
+    <script src="{% static 'vendor/bootstrap/js/jquery.js'%}"></script>
+    <script src="{% static 'vendor/bootstrap/js/popper.js'%}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.js'%}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <script>
+        $(function() {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+        });
+    </script>
+</html>

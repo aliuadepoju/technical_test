@@ -1,0 +1,63 @@
+{% extends 'numberplatesgenerator/base.html' %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-sm">
+    
+    </div>
+    <div class="col-sm">
+    <div class="row"> 
+    <h1>Select a Date Range to View Report</h1>
+    </div>
+      <form method="post">
+       {% csrf_token %}
+        <div class="form-group">
+                <label for="LGA">Select LGA</label>
+                <select name="lga" class="form-control" id="lga">
+                <option value="ABJ">Abaji</option>
+                <option value="ABC">Abuja Municipal</option>
+                <option value="GWA">Gwagwalada</option>
+                <option value="KUJ">Kuje</option>
+                <option value="BWR">Bwari</option>
+                <option value="KWL">Kwali</option>
+                </select>
+            </div>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+     <table class="table">
+  <thead>
+    <tr>
+
+      <th scope="col">Plate Numbers</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for number in number_plate %}
+   <tr>
+      <td>
+      {{number.lga_code}} 
+      {% if number.number < 10 %}
+     00{{number.number }} 
+     {% endif %} 
+     {% if number.number >= 10 %}
+         0{{number.number}} 
+     {%endif%}
+     
+     {{ number.alphabet}}</td>
+   
+    </tr>
+  
+    {% endfor %}
+  </tbody>
+</table>
+    </div>
+    <div class="col-sm">
+    
+    </div>
+
+
+  </div>
+{% endblock content %}
+
