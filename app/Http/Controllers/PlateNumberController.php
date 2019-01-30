@@ -37,25 +37,25 @@ class PlateNumberController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the request
         $validation = Validator::make($request->all(), [
             "lga" => "bail|required|string|max:3",
             "qty" => "bail|required|integer"
         ]);
 
+        // Return appropriate error message if any
         if ($validation->fails()) {
             return back()->with('errorMsg', 'Oops, please make sure you fill out the form.');
         }
 
-        $lgaCode = strtoupper($request->lga);
-        for ($i = 0; $i < (int)$request->qty; $i++) {
-            auth()->user()->plateNumbers()->create([
-                'lga' => Utility::getLgaName($request->lga),
-                'code' => $lgaCode,
-                'number' => Utility::generatePlateNumber($lgaCode)
-            ]);
+        // Generate and persist the plate numbers
+        try {
+            PlateNumber::generate($request->lga, $request->qty);
+            return redirect()->route('home');
         }
-
-        return redirect()->route('home');
+        catch (\Exception $exception) {
+            return back()->with('errorMsg', 'Oops.. An error occurred, please try again.');
+        }
     }
 
     /**

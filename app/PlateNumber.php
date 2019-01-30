@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Helpers\PlateNumberGenerator;
+use App\Helpers\Utility;
 use Illuminate\Database\Eloquent\Model;
 
 class PlateNumber extends Model
@@ -29,8 +31,25 @@ class PlateNumber extends Model
      * Inverse relationship between plate number and user
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function plateNumber()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Generates plate number(s)
+     * @param $lgaCode
+     * @param $qty
+     */
+    public static function generate($lgaCode, $qty = 1)
+    {
+        $lgaCode = strtoupper($lgaCode);
+            for ($i = 0; $i < (int)$qty; $i++) {
+                auth()->user()->plateNumbers()->create([
+                    'lga' => Utility::getLgaName($lgaCode),
+                    'code' => $lgaCode,
+                    'number' => PlateNumberGenerator::generate($lgaCode)
+                ]);
+            }
     }
 }
