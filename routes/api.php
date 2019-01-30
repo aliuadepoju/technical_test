@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
 |
 */
 
+/*
+ * Get the authenticated user plate numbers
+ */
 Route::middleware('auth:api')->get('/plate-numbers', function (Request $request) {
     return $request->user()->plateNumbers()->latest('id')->paginate(PlateNumber::PER_PAGE);
 });

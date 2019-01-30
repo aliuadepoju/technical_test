@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\PlateNumber;
 use App\User;
 
 class Utility
@@ -65,8 +66,8 @@ class Utility
      */
     public static function generatePlateNumber($lgaCode)
     {
-        $number = auth()->user()->plateNumbers()->whereCode($lgaCode)->count();
-        $prefixedNum = static::addNumberPrefix($number);
+        $number = PlateNumber::whereCode($lgaCode)->count();
+        $prefixedNum = static::addNumberPrefix($number, $lgaCode);
         $plateNumber = strtoupper($lgaCode) . $prefixedNum;
 
         return $plateNumber;
@@ -75,29 +76,48 @@ class Utility
     /**
      * Add number prefix
      * @param $num
+     * @param $lgaCode
      * @return string
      */
-    private static function addNumberPrefix($num)
+    private static function addNumberPrefix($num, $lgaCode)
     {
         $num += 1;
         if (strlen($num) == 1) {
-            return '00' . $num;
+            $num = '00' . $num;
         } elseif (strlen($num) == 2) {
-            return '0' . $num;
-        } elseif (strlen($num) == 3) {
-            return $num;
+            $num = '0' . $num;
         }
+
+        return static::addNumberSuffix($num, $lgaCode);
     }
 
     /**
      * Add suffix to the plate number
      * @param $num
+     * @param $lgaCode
      * @return mixed
      */
-    private static function addNumberSuffix($num)
+    private static function addNumberSuffix($num, $lgaCode)
     {
-        $suffix = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $suffixes = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $plateNumber = $num . $suffixes[0] . $suffixes[0];
+        $lastPlateNumber = collect(PlateNumber::whereCode($lgaCode)->get()->toArray())->last();
 
-        return $num;
+        if (!is_null($lastPlateNumber)) {
+            if (strlen($num) > 3 && (int)$num == 1000) {
+                $first = substr($lastPlateNumber['number'], -2, 1);
+                $second = substr($lastPlateNumber['number'], -1);
+                $lastSuffix = $suffixes[array_search($second, str_split($suffixes)) + 1];
+                $plateNumber = '001' . $first . $lastSuffix;
+
+                if (!is_null(PlateNumber::whereNumber($lgaCode . $plateNumber)->first())) {
+                    $firstSuffix = $suffixes[array_search($first, str_split($suffixes)) + 1];
+                    $plateNumber = '001' . $firstSuffix . $lastSuffix;
+                }
+
+            }
+        }
+
+        return $plateNumber;
     }
 }

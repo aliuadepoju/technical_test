@@ -6,6 +6,8 @@
     cd technical_test
     git checkout lawrence_onah
     composer install
+    composer run-script post-root-package-install
+    # Update .env file accordingly before running the last command
     php artisan migrate
 ```
 

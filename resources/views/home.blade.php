@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Generated Plates
+                <div class="card-header">Generated Plates Numbers
                     <a href="{{ route('plate-number.create') }}" class="btn btn-outline-primary btn-sm
                     float-lg-right">Generate</a>
                 </div>
