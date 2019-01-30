@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Utility;
 use App\PlateNumber;
 use Illuminate\Http\Request;
 use Validator;
