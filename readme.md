@@ -1,5 +1,14 @@
 ## Technical Test
 
+# Installation
+```bash
+    git clone https://github.com/aliuadepoju/technical_test.git
+    cd technical_test
+    git checkout lawrence_onah
+    composer install
+    php artisan migrate
+```
+
 **INSTRUCTIONS**
 
 **SECTION A** - *In all you are required to have three display screens*<br/><br/>
