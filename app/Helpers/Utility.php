@@ -11,19 +11,21 @@ class Utility
      * @param User $user
      * @return bool|string
      */
-    public function generateUniqueToken(User $user)
+    public static function generateUniqueToken(User $user)
     {
         try {
+            // Generate the token
             $token = hex2bin(random_bytes(32));
             $tokenExists = $user->whereApiToken($token)->first();
 
+            // Check if token already exists
             if ($tokenExists) {
                 return static::generateUniqueToken($user);
             }
 
             return $token;
         } catch (\Exception $exception) {
-            \Log::error($exception->getMessage());
+            return static::generateUniqueToken($user);
         }
     }
 }
