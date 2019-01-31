@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\PlateNumber;
+use App\PlateNumbers;
 use App\Http\Requests;
 use App\Http\Resources\PlateNumbers as PlateNumbersResource;
 use Illuminate\Http\Request;
