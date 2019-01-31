@@ -43,4 +43,7 @@ you can actually access all pages without login in.
 
 ---
 
+Ensure you import the database to your mysql server.
+username is "root" no password and the dbname is "roadsafety"
+
 Thanks.
