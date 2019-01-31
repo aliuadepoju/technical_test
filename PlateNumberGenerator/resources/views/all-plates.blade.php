@@ -6,92 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Generated plate numbers</title>
-    <link rel="stylesheet" href="/css/app.css">
+     <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
-    <!-- Styles -->
-    <style>
-        html,
-        body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
-            height: 60vh;
-            margin: 0;
-        }
 
-        .full-height {
-            height: 50vh;
-        }
-
-        .btn-primary {
-            background: blue;
-            border-radius: 20px;
-            color: white;
-            padding: 10px;
-        }
-
-        small {
-            font-size: 14px !important;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
-        .links>a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 13px;
-            font-weight: 100;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        p{
-            font-size: 14px!important;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-
-    </style>
 </head>
 
 <body>
-    <div class="flex-center position-ref mb-4">
+    <div class="Container-fluid mb-4">
         @if (Route::has('login'))
-        <div class="top-right links">
+        <div class="text-right links bg-dark p-4">
             @auth
-            <a href="/plate-numbers">Generate Plate</a>
+            <a href="/plate-numbers">Generate Plate</a> |
             <a href="/all-plates">View All Plate Numbers</a>
             @else
-            <a href="{{ route('login') }}">Login</a>
+            <a href="{{ route('login') }}">Login</a> |
 
             @if (Route::has('register'))
             <a href="{{ route('register') }}">Register</a>
@@ -99,14 +31,14 @@
         </div>
         @endif
 
-        <div class="content">
-            <br>
-            <br>
-            <br>
-            <br>
-            <div class="filter">
+        {{--filter plates--}}
+        <div class="container">
+            <div class="card mb-4">
+                <p class="card-header">Filter Search Plate Numbers</p>
+            <div class="filter card-body">
                 {!! Form::open(['action' => 'HomeController@index', 'method' => 'GET', 'enctype' => 'multipart/form-data' ]) !!} @csrf
                 <div class="form-group">
+                    <label>Select  LGA</label>
                     <select name="LGAsearch" class="custom-select">
                         <option>Select LGA to filter</option>
                         <option value="KUJ">
@@ -127,32 +59,34 @@
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group card-footer">
                     <button value="submit" class="btn btn-primary">Filter By LGA</button>
                 </div>
                 {!! Form::close() !!}
 
             </div>
+            </div>
 
 
+            {{--all generated plates--}}
+            <div class="card">
 
-            <div class="title">
-                <div class="plates">
-                    <small>All Plate Numbers Generated So Far</small>
+                    <p class="card-header">All Plate Numbers Generated So Far</p>
 
                     @if(count($generatedPlates) > 0)
                     @foreach($generatedPlates as $generatedPlate)
-                    <p>{{$generatedPlate->LGA}}
+                    <p class="card-body">
+                        {{$generatedPlate->LGA}}
                        {{$generatedPlate->random_Number}}
                        {{$generatedPlate->character_Suffix}}
                     </p>
                     <hr>
                      @endforeach
-                    <small >{{ $generatedPlates->links() }}</small>
+                    <small class="card-footer">{{ $generatedPlates->links() }}</small>
                     @else
                     <p>No plates generated so far</p>
                     @endif
-                </div>
+
 
             </div>
         </div>

@@ -5,81 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Generate PlateNumber</title>
-        <link rel="stylesheet" href="/css/app.css">
+       <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 60vh;
-                margin: 0;
-            }
 
-            .full-height {
-                height: 50vh;
-            }
-
-            .btn-primary{
-                background: blue;
-                border-radius: 20px;
-                color:white;
-                padding: 10px;
-            }
-
-            small{
-                font-size: 14px!important;
-            }
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
     </head>
     <body>
-        <div class="flex-center position-ref mb-2">
+        <div class="container-fluid">
             @if (Route::has('login'))
-                <div class="top-right links">
+                <div class="text-right links text-white  p-4 bg-dark mb-4">
                     @auth
-                        <a href="/all-plates">View All Plate Numbers</a>
+                        <a href="/all-plates" >View All Plate Numbers</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -90,28 +29,36 @@
                 </div>
             @endif
 
-            <div class="content">
-                <div class="title">
+            {{--generated plates--}}
+            <div class="container">
+                <div class="card mb-2 ">
                 @if(count($generatedPlates) > 0)
-                <small>Generated Plate Number</small>
+                <p class="card-header">Generated Plate Number</p>
                 <br>
                     @foreach($generatedPlates as $generatedPlate)
-                        <small>{{$generatedPlate->LGA}}</small>
-                        <small>{{$generatedPlate->random_Number}}</small>
-                        <small>{{$generatedPlate->character_Suffix}}</small>
+                        <p class="container">
+                        {{$generatedPlate->LGA}}
+                        {{$generatedPlate->random_Number}}
+                        {{$generatedPlate->character_Suffix}}
+                        </p>
                         <hr>
                     @endforeach
                     @else
-                    <p>No plates Generated yet</p>
+                    <p class="card-footer">No plates Generated yet</p>
                     @endif
-                    <small >{{ $generatedPlates->links() }}</small>
+                    <small class="card-footer">{{ $generatedPlates->links() }}</small>
                 </div>
 
-                <div class="Plates">
+                {{--generate new plate--}}
+                <div class="card">
+                    <p class="card-header">Generate Plate Number(s)</p>
+                    <div class="card-body">
                  {!! Form::open(['action' => 'PlateNumbersController@store', 'method' => 'POST','id'=>'submit', 'enctype' => 'multipart/form-data' ]) !!}
                         @csrf
                         <div class="form-group">
-                            <select name="LGA" id="LGA" class="custom-select">
+                            <label>Select LGA</label>
+                            <select name="LGA" id="LGA" class="custom-select" required>
+                                <option>Pick your LGA</option>
                            <option value="KUJ">
                             Kuje
                            </option>
@@ -131,14 +78,16 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" name="plates_to_generate" placeholder="plates to generate" class="form-control">
+                             <label>How many number of plates?</label>
+                            <input type="number" class="form-control" name="plates_to_generate" placeholder="plates to generate" class="form-control" required>
                         </div>
 
 
                         <div class="form-group">
-                        <button value="submit" class="btn btn-primary">Generate</button>
+                        <button value="submit" class="btn btn-primary">Generate Plate(s)</button>
                         </div>
                     {!! Form::close() !!}
+                    </div>
 
                 </div>
             </div>

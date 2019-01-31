@@ -31,10 +31,7 @@ class PlateNumbersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -47,7 +44,7 @@ class PlateNumbersController extends Controller
          $this->validate($request, [
              //check form if it has correct details
             'LGA' => 'required',
-            'plates_to_generate' => 'required|digits',
+            'plates_to_generate' => 'required|min:1',
 
         ]);
 
@@ -188,48 +185,5 @@ class PlateNumbersController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\PlateNumbers  $plateNumbers
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PlateNumbers $plateNumbers)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\PlateNumbers  $plateNumbers
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PlateNumbers $plateNumbers)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PlateNumbers  $plateNumbers
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, PlateNumbers $plateNumbers)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\PlateNumbers  $plateNumbers
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PlateNumbers $plateNumbers)
-    {
-        //
-    }
 }
