@@ -41,22 +41,25 @@
     </tr>
   </thead>
   <tbody>
-   {% for number in number_plate %}
+    {% for number in number_plate %}
    <tr>
       <td>
       {{number.lga_code}} 
-      {% if number.number > 10 %}
+      {% if number.number < 10 %}
      00{{number.number }} 
      {% endif %} 
-     0{{number.number}} 
-     {{ number.alphabet}}</td>
+     {% if number.number >= 10 %}
+         0{{number.number}} 
+     {%endif%}
+     {% if number.number >= 100 %}
+      {{number.number}} 
+     {%endif%}
+     {{ number.alphabet}}
+     </td>
    
     </tr>
   
     {% endfor %}
-    
-    
-    </tr>
   </tbody>
 </table>
    

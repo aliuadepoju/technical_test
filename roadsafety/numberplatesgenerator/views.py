@@ -20,8 +20,8 @@ def number_plate_generator_page(request):
         "title": "Number Plate Generator Page",
         "number_plate": ""
     }
-    
-    #Algorithm
+
+    # Algorithm
     # Check the database for the current number [1 - 999]
 
     # Display the values number plates
@@ -50,21 +50,21 @@ def number_plate_generator_page(request):
         # Display the values number plates
         for number in numbers:
             context["number_plate"] = numbers
-
-        latest = numbers.latest('number').number < 999
-        if latest:
-            newNumber = numbers.latest("number").number+1
-        else:
-            newNumber = 1
-
-        # get the next suffix the first suffix is AA by default if
-        default_suffix = NumberPlate.objects.filter().latest("number").alphabet
-        if default_suffix == "ZZ":
-            newsuffix = "AA"
-        else:
-            next_suffix = default_suffix[1] + chr(ord(default_suffix[0])+1)
-
+        #loop generate i number of plates
         for i in range(int(number_of_plate_numbers)):
+            latest = numbers.latest('number').number < 999
+            if latest:
+                newNumber = numbers.latest("number").number+1
+            else:
+                newNumber = 1
+
+            # get the next suffix the first suffix is AA by default if
+            default_suffix = NumberPlate.objects.filter().latest("number").alphabet
+            if default_suffix == "ZZ":
+                newsuffix = "AA"
+            else:
+                next_suffix = default_suffix[1] + chr(ord(default_suffix[0])+1)
+
             NumberPlate(
                 name="Bassey",
                 lga_code=lga_code,
