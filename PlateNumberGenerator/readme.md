@@ -26,7 +26,7 @@
 
 <code>npm install</code>
 
-<p>Create a empty database</p>
+<p>Create an empty database</p>
 
 <p>Make a copy of .env.example file, name it .env (cp .example.env .env) and enter database connection details into .env file (db_host,db_username,db_password,db_database)</p>
 
