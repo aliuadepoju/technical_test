@@ -1,7 +1,7 @@
 <h1>Language PHP (Laravel framework)</h1>
 
 <p>
-    User does need to be authenticated to access the the plate number generating page and also be able to see all plates that have been     generated
+    User does not need to be authenticated to access the the plate number generating page and also be able to see all plates that have been     generated
 </p>
 
 <p>User can can filter generated plate numbers using LGA as search criteria</p>
