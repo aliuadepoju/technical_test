@@ -4,7 +4,7 @@
     User does not need to be authenticated to access the the plate number generating page and also be able to see all plates that have been     generated
 </p>
 
-<p>User can can filter generated plate numbers using LGA as search criteria</p>
+<p>User can filter generated plate numbers using LGA as search criteria</p>
 
 <h2>API Docs(Tested with postman)</h2>
 
@@ -26,13 +26,15 @@
 
 <code>npm install</code>
 
-<p>Create a database table and enter correct details into .env file</p>
+<p>Create a empty database</p>
+
+<p>Make a copy of .env.example file, name it .env (cp .example.env .env) and enter database connection details into .env file (db_host,db_username,db_password,db_database)</p>
 
 <p>Run <code>php artisan key:generate</code></p>
 
-<p>Run <code>composer dump-autoload</code></p>
-
 <p>Run <code>php artisan migrate</code>  (please make sure your database connection details in the .env file are correct)</p>
+
+<p>Run <code>composer dump-autoload</code></p>
 
 <p>Run <code>php artisan serve</code></p>
 
