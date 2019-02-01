@@ -17,41 +17,30 @@
         <div class="container-fluid">
             @if (Route::has('login'))
                 <div class="text-right links text-white  p-4 bg-dark mb-4">
-                    @auth
                         <a href="/all-plates" >View All Plate Numbers</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
                 </div>
             @endif
 
-            {{--generated plates--}}
             <div class="container">
-                <div class="card mb-2 ">
+                <div class="card mb-2">
                 @if(count($generatedPlates) > 0)
                 <p class="card-header">Generated Plate Number</p>
                 <br>
                     @foreach($generatedPlates as $generatedPlate)
-                        <p class="container">
-                        {{$generatedPlate->LGA}}
-                        {{$generatedPlate->random_Number}}
+                        <p class="container">{{$generatedPlate->LGA}}
+                           {{$generatedPlate->random_Number}}
                         {{$generatedPlate->character_Suffix}}
                         </p>
                         <hr>
                     @endforeach
                     @else
-                    <p class="card-footer">No plates Generated yet</p>
+                    <p class="cadr-footer">No plates Generated yet</p>
                     @endif
-                    <small class="card-footer">{{ $generatedPlates->links() }}</small>
+                    <small >{{ $generatedPlates->links() }}</small>
                 </div>
 
-                {{--generate new plate--}}
                 <div class="card">
-                    <p class="card-header">Generate Plate Number(s)</p>
+                    <p class="card-header">Generate Plate Numbers</p>
                     <div class="card-body">
                  {!! Form::open(['action' => 'PlateNumbersController@store', 'method' => 'POST','id'=>'submit', 'enctype' => 'multipart/form-data' ]) !!}
                         @csrf
@@ -71,15 +60,31 @@
                            <option value="KWL">
                             Kwali
                            </option>
+                           <option value="GWA">
+                            Gwagwalada
+                           </option>
                            <option value="BWR">
                             Bwari
                            </option>
                         </select>
+
+                         @if ($errors->has('LGA'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('LGA') }}</strong>
+                                    </span>
+                         @endif
+
                         </div>
 
                         <div class="form-group">
                              <label>How many number of plates?</label>
                             <input type="number" class="form-control" name="plates_to_generate" placeholder="plates to generate" class="form-control" required>
+
+                            @if ($errors->has('plates_to_generate'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('plates_to_generate') }}</strong>
+                                    </span>
+                            @endif
                         </div>
 
 

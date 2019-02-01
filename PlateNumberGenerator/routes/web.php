@@ -11,11 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::View('/',  'login-page');
 
-Route::Resource('plate-numbers','PlateNumbersController')->middleware('auth');
+Route::Resource('plate-numbers','PlateNumbersController');
 Auth::routes();
 
-Route::get('/all-plates', 'HomeController@index')->middleware('auth');
+Route::get('/all-plates', 'HomeController@index');

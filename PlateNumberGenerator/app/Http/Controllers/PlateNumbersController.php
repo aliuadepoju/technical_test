@@ -43,8 +43,8 @@ class PlateNumbersController extends Controller
     {
          $this->validate($request, [
              //check form if it has correct details
-            'LGA' => 'required',
-            'plates_to_generate' => 'required|min:1',
+            'LGA' => 'required|alpha|max:3',
+            'plates_to_generate' => 'required|min:1|integer',
 
         ]);
 
