@@ -34,6 +34,8 @@ pip install -r requirements.txt
 API endpoint
 http://localhost:8000/api/v1/?format=json
 
+You can find a well structured API Documentation here http://localhost:8000/doc : with a fronten interaction.
+
 other urls:
 report: http://localhost:8000/report
 generate plate number: http://localhost:8000/generator
