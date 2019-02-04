@@ -24,7 +24,7 @@ class PlateNumber extends Model
      * @var array
      */
     protected $hidden = [
-        'user_id', 'created_at', 'updated_at'
+        'user_id', 'updated_at'
     ];
 
     /**
@@ -44,12 +44,12 @@ class PlateNumber extends Model
     public static function generate($lgaCode, $qty = 1)
     {
         $lgaCode = strtoupper($lgaCode);
-            for ($i = 0; $i < (int)$qty; $i++) {
-                auth()->user()->plateNumbers()->create([
-                    'lga' => Utility::getLgaName($lgaCode),
-                    'code' => $lgaCode,
-                    'number' => PlateNumberGenerator::generate($lgaCode)
-                ]);
-            }
+        for ($i = 0; $i < (int)$qty; $i++) {
+            auth()->user()->plateNumbers()->create([
+                'lga' => Utility::getLgaName($lgaCode),
+                'code' => $lgaCode,
+                'number' => PlateNumberGenerator::generate($lgaCode)
+            ]);
+        }
     }
 }

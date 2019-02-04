@@ -55,15 +55,14 @@ class PlateNumberGenerator
         // Handle when the plate number is at it's limit
         if ((int)$num > 999) {
             $lastPlateNumber = static::getLastPlateNumberArray($lgaCode);
-            $first = substr($lastPlateNumber['number'], -2, 1);
-            $lastSuffix = static::getLastSuffix($lastPlateNumber['number']);
-            $plateNumber = '001' . $first . $lastSuffix;
+            $firstChar = substr($lastPlateNumber['number'], -2, 1);
+            $nextLastChar = static::getNextLastSuffixChar($lastPlateNumber['number']);
+            $plateNumber = '001' . $firstChar . $nextLastChar;
 
             $lastPlateNumber = PlateNumber::whereNumber($lgaCode . $plateNumber)->first();
             if (!is_null($lastPlateNumber)) {
-                $lastSuffix = static::getLastSuffix($lastPlateNumber->number);
-                $firstSuffix = static::$suffixes[array_search($first, str_split(static::$suffixes)) + 1];
-                $plateNumber = '001' . $firstSuffix . $lastSuffix;
+                $nextFirstChar = static::getNextFirstSuffixChar($firstChar);
+                $plateNumber = '001' . $nextFirstChar . $nextLastChar;
             }
         }
 
@@ -71,14 +70,32 @@ class PlateNumberGenerator
     }
 
     /**
-     * Get last suffix
+     * Get the next last suffix character
      * @param $number
      * @return mixed
      */
-    private static function getLastSuffix($number)
+    private static function getNextLastSuffixChar($number)
     {
-        $second = substr($number, -1);
-        return static::$suffixes[array_search($second, str_split(static::$suffixes)) + 1];
+        $lastChar = substr($number, -1);
+        $nextChar = array_search($lastChar, str_split(static::$suffixes)) + 1;
+        if ($nextChar == strlen(static::$suffixes)) {
+            $nextChar = 0;
+        }
+        return static::$suffixes[$nextChar];
+    }
+
+    /**
+     * Get the next first suffix character
+     * @param $lastFirstChar
+     * @return mixed
+     */
+    private static function getNextFirstSuffixChar($lastFirstChar)
+    {
+        $nextChar = array_search($lastFirstChar, str_split(static::$suffixes)) + 1;
+        if ($nextChar == strlen(static::$suffixes)) {
+            $nextChar = 0;
+        }
+        return static::$suffixes[$nextChar];
     }
 
     /**

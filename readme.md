@@ -1,3 +1,7 @@
+# Requirements
+-   PHP >= 7.1.3
+-   MySQL / MariaDB >= 5.7.16
+
 # Installation
 ```bash
     git clone https://github.com/aliuadepoju/technical_test.git
@@ -6,6 +10,7 @@
     composer install
     composer run-script post-root-package-install
     # Update .env file accordingly before running the last command
+    php artisan key:generate
     php artisan migrate
 ```
 
